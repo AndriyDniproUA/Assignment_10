@@ -35,6 +35,34 @@ public class TwoWayLinkedList<T> {
         cur.value = value;
     }
 
+    public void remove(int index) {
+        CheckIndex(index);
+        Node cur = getNodeByIndex(index);
+        //System.out.println(cur.getValue());
+
+        if (cur.previous == null && cur.next == null) {
+            head = tail = null;
+        }
+
+
+        if (cur.previous == null && cur.next != null) {
+            cur.next.previous = null;
+            head = cur.next;
+        }
+
+        if (cur.next == null && cur.previous != null) {
+            cur.previous.next = null;
+            tail = cur.previous;
+        }
+
+        if (cur.previous != null && cur.next != null) {
+            cur.next.previous = cur.previous;
+            cur.previous.next = cur.next;
+        }
+
+    }
+
+
     private void CheckIndex(int index) {
         if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
     }
